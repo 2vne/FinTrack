@@ -50,104 +50,95 @@ export default function Goals({ lang }) {
 
   return (
     <div className="fade-in">
-      <div className="page-header">
+      <div className="page-header mb-5">
         <div>
           <h1>{lang.goals}</h1>
-          <p>Set financial goals and track your progress</p>
+          <p className="text-secondary">Set financial goals and track your progress</p>
         </div>
         <button className="btn btn-primary" onClick={() => setShowModal(true)}>+ {lang.addGoal}</button>
       </div>
 
-      <div className="grid-3">
+      <div className="row g-4">
         {goals.map((goal) => {
           const info = calculateGoalInfo(goal);
           // Fake progress for visual presentation based on goal ID
-          const percentage = (goal.id % 60) + 20; 
+          const percentage = (goal.id % 60) + 20;
           const currentSaved = Math.floor(goal.targetAmount * (percentage / 100));
 
           return (
-            <div className="card goal-card" key={goal.id} style={{ display: 'flex', flexDirection: 'column', gap: '16px', padding: '24px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <h4 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--text)', marginBottom: '4px' }}>{goal.name}</h4>
-                <button 
-                  onClick={() => deleteGoal(goal.id)} 
-                  style={{ 
-                    background: 'transparent', 
-                    border: '1px solid rgba(239,68,68,0.2)', 
-                    color: 'var(--danger)', 
-                    padding: '6px 12px', 
-                    borderRadius: '6px', 
-                    fontSize: '0.8rem', 
-                    fontWeight: 600,
-                    cursor: 'pointer'
-                  }}
-                >
-                  Delete
-                </button>
-              </div>
-              
-              <div>
-                <div style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--text)', marginBottom: '8px' }}>
-                  ₹{currentSaved.toLocaleString()}
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                  <span>Target: ₹{goal.targetAmount.toLocaleString()}</span>
-                  <span>{info.diffDays} days left</span>
-                </div>
-              </div>
-
-              <div className="progress-wrapper" style={{ margin: 0 }}>
-                <div className="progress-bar-bg" style={{ height: '6px', background: 'rgba(255,255,255,0.05)', borderRadius: '4px' }}>
-                  <div 
-                    className="progress-bar-fill" 
-                    style={{ 
-                      width: `${percentage}%`, 
-                      background: 'var(--primary)',
-                      height: '100%',
-                      borderRadius: '4px'
+            <div className="col-12 col-md-6 col-lg-4" key={goal.id}>
+              <div className="card goal-card h-100 d-flex flex-column gap-3 p-4">
+                <div className="d-flex justify-content-between align-items-start">
+                  <h4 className="h6 fw-semibold mb-1" style={{ color: 'var(--text)' }}>{goal.name}</h4>
+                  <button
+                    onClick={() => deleteGoal(goal.id)}
+                    className="btn btn-sm"
+                    style={{
+                      background: 'transparent',
+                      border: '1px solid rgba(220,38,38,0.2)',
+                      color: 'var(--danger)',
+                      borderRadius: '6px',
+                      fontSize: '0.8rem',
+                      fontWeight: 600
                     }}
-                  ></div>
+                  >
+                    Delete
+                  </button>
                 </div>
-              </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text)' }}>{percentage}%</span>
-                <span style={{ 
-                  padding: '4px 12px', 
-                  borderRadius: '16px', 
-                  border: '1px solid rgba(16,185,129,0.2)', 
-                  color: 'var(--success)', 
-                  background: 'rgba(16,185,129,0.1)',
-                  fontSize: '0.75rem',
-                  fontWeight: 600
-                }}>
-                  On track
-                </span>
-              </div>
+                <div>
+                  <div className="fs-3 fw-bold mb-2" style={{ color: 'var(--text)' }}>
+                    ₹{currentSaved.toLocaleString('en-IN')}
+                  </div>
+                  <div className="d-flex justify-content-between small text-secondary">
+                    <span>Target: ₹{goal.targetAmount.toLocaleString('en-IN')}</span>
+                    <span>{info.diffDays} days left</span>
+                  </div>
+                </div>
 
-              <div style={{ marginTop: 'auto', paddingTop: '16px', borderTop: '1px solid var(--border)', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                Save <span style={{ color: 'var(--success)', fontWeight: 600 }}>₹{info.monthlySaving.toLocaleString()}</span> per month to hit it
+                <div className="progress-wrapper m-0">
+                  <div className="progress-bar-bg" style={{ height: '6px', background: 'rgba(255,255,255,0.05)', borderRadius: '4px' }}>
+                    <div
+                      className="progress-bar-fill"
+                      style={{
+                        width: `${percentage}%`,
+                        background: 'var(--primary)',
+                        height: '100%',
+                        borderRadius: '4px'
+                      }}
+                    ></div>
+                  </div>
+                </div>
+
+                <div className="d-flex justify-content-between align-items-center">
+                  <span className="fw-semibold" style={{ fontSize: '1rem', color: 'var(--text)' }}>{percentage}%</span>
+                  <span className="px-3 py-1 rounded-pill small fw-semibold" style={{
+                    border: '1px solid rgba(16,185,129,0.2)',
+                    color: 'var(--success)',
+                    background: 'rgba(16,185,129,0.1)',
+                    fontSize: '0.75rem'
+                  }}>
+                    On track
+                  </span>
+                </div>
+
+                <div className="mt-auto pt-3 border-top border-secondary-subtle small text-secondary">
+                  Save <span className="text-success fw-semibold">₹{info.monthlySaving.toLocaleString('en-IN')}</span> per month to hit it
+                </div>
               </div>
             </div>
           );
         })}
-        
-        <div 
-          className="card" 
-          style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            alignItems: 'center', 
-            justifyContent: 'center', 
-            border: '1px dashed var(--border)', 
-            background: 'transparent',
-            cursor: 'pointer',
-            minHeight: '260px'
-          }}
-          onClick={() => setShowModal(true)}
-        >
-          <div style={{ color: 'var(--primary)', fontWeight: 600, marginBottom: '8px' }}>+ Create new goal</div>
-          <div style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>Set a target & deadline</div>
+
+        <div className="col-12 col-md-6 col-lg-4">
+          <div
+            className="card h-100 d-flex flex-column align-items-center justify-content-center"
+            style={{ border: '1px dashed var(--border)', background: 'transparent', cursor: 'pointer', minHeight: '260px' }}
+            onClick={() => setShowModal(true)}
+          >
+            <div className="text-primary fw-semibold mb-2">+ Create new goal</div>
+            <div className="text-secondary small">Set a target & deadline</div>
+          </div>
         </div>
       </div>
 
@@ -163,10 +154,13 @@ export default function Goals({ lang }) {
               <input type="number" className="form-control" value={targetAmount} onChange={(e) => setTargetAmount(e.target.value)} placeholder="Enter target amount" required min="1" />
             </div>
             <div className="form-group">
-              <label>{lang.targetDate} (DD/MM/YYYY)</label>
-              <input type="text" className="form-control" value={targetDate} onChange={(e) => setTargetDate(e.target.value)} placeholder="DD/MM/YYYY" required pattern="\d{2}/\d{2}/\d{4}" />
+              <label>{lang.targetDate}</label>
+              <div style={{ position: 'relative' }}>
+                <input type="text" className="form-control" value={targetDate ? targetDate.split('-').reverse().join('/') : ''} placeholder="DD/MM/YYYY" readOnly style={{ backgroundColor: 'var(--bg)' }} />
+                <input type="date" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }} value={targetDate} onChange={(e) => setTargetDate(e.target.value)} required onClick={(e) => e.target.showPicker()} />
+              </div>
             </div>
-            <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>{lang.addGoal}</button>
+            <button type="submit" className="btn btn-primary w-100 justify-content-center">{lang.addGoal}</button>
           </form>
         </Modal>
       )}

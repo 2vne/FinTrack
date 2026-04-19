@@ -39,8 +39,8 @@ export default function LineChart({ data }) {
             <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
           </linearGradient>
           <linearGradient id="expenseGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#ef4444" stopOpacity="0.1" />
-            <stop offset="100%" stopColor="#ef4444" stopOpacity="0" />
+            <stop offset="0%" stopColor="var(--danger)" stopOpacity="0.1" />
+            <stop offset="100%" stopColor="var(--danger)" stopOpacity="0" />
           </linearGradient>
           <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
             <feGaussianBlur stdDeviation="3" result="blur" />
@@ -62,13 +62,13 @@ export default function LineChart({ data }) {
 
         {/* Lines */}
         <path d={incomePath} fill="none" stroke="#10b981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ filter: 'url(#glow)' }} />
-        <path d={expensePath} fill="none" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d={expensePath} fill="none" stroke="var(--danger)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
 
         {/* Dots and labels */}
         {data.map((d, i) => (
           <g key={i}>
             <circle cx={getX(i)} cy={getY(d.income)} r="3" fill="#10b981" />
-            <circle cx={getX(i)} cy={getY(d.expense)} r="3" fill="#ef4444" />
+            <circle cx={getX(i)} cy={getY(d.expense)} r="3" fill="var(--danger)" />
             <text x={getX(i)} y={height - 5} textAnchor="middle" fill="var(--text-secondary)" fontSize="11" fontWeight="600">{d.month}</text>
           </g>
         ))}
@@ -77,7 +77,7 @@ export default function LineChart({ data }) {
         <g transform={`translate(${width - 150}, 10)`}>
           <circle cx="0" cy="0" r="4" fill="#10b981" />
           <text x="10" y="4" fill="var(--text-secondary)" fontSize="11" fontWeight="600">Income</text>
-          <circle cx="70" cy="0" r="4" fill="#ef4444" />
+          <circle cx="70" cy="0" r="4" fill="var(--danger)" />
           <text x="80" y="4" fill="var(--text-secondary)" fontSize="11" fontWeight="600">Expense</text>
         </g>
       </svg>

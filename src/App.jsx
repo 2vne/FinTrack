@@ -25,7 +25,7 @@ function AppLayout({ children, lang }) {
   );
 }
 
-function AppRoutes({ theme, setTheme, language, setLanguage, lang }) {
+function AppRoutes({ language, setLanguage, lang }) {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
@@ -53,7 +53,7 @@ function AppRoutes({ theme, setTheme, language, setLanguage, lang }) {
       <Route path="/settings" element={
         <ProtectedRoute>
           <AppLayout lang={lang}>
-            <Settings lang={lang} theme={theme} setTheme={setTheme} language={language} setLanguage={setLanguage} />
+            <Settings lang={lang} language={language} setLanguage={setLanguage} />
           </AppLayout>
         </ProtectedRoute>
       } />
@@ -63,15 +63,9 @@ function AppRoutes({ theme, setTheme, language, setLanguage, lang }) {
 }
 
 export default function App() {
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
   const [language, setLanguage] = useState(() => localStorage.getItem('language') || 'en');
 
   const lang = translations[language] || translations.en;
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  }, [theme]);
 
   useEffect(() => {
     localStorage.setItem('language', language);
@@ -79,7 +73,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <AppRoutes theme={theme} setTheme={setTheme} language={language} setLanguage={setLanguage} lang={lang} />
+      <AppRoutes language={language} setLanguage={setLanguage} lang={lang} />
     </BrowserRouter>
   );
 }

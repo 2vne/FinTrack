@@ -75,16 +75,16 @@ export default function Budgets({ lang }) {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
             <div className="card" style={{ padding: '20px' }}>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px' }}>Total Budget</div>
-              <div style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--text)' }}>₹{totalBudget.toLocaleString()}</div>
+              <div style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--text)' }}>₹{totalBudget.toLocaleString('en-IN')}</div>
             </div>
             <div className="card" style={{ padding: '20px' }}>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px' }}>Total Spent</div>
-              <div style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--warning)', marginBottom: '4px' }}>₹{totalSpent.toLocaleString()}</div>
+              <div style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--warning)', marginBottom: '4px' }}>₹{totalSpent.toLocaleString('en-IN')}</div>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{totalPercentage}% used</div>
             </div>
             <div className="card" style={{ padding: '20px' }}>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px' }}>Remaining</div>
-              <div style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--success)' }}>₹{totalRemaining.toLocaleString()}</div>
+              <div style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--success)' }}>₹{totalRemaining.toLocaleString('en-IN')}</div>
             </div>
             <div className="card" style={{ padding: '20px' }}>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px' }}>At Risk</div>
@@ -105,14 +105,14 @@ export default function Budgets({ lang }) {
                   <div>
                     <h4 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--text)', marginBottom: '6px' }}>{b.category}</h4>
                     <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontFamily: 'monospace' }}>
-                      ₹{spent.toLocaleString()} of ₹{b.limit.toLocaleString()}
+                      ₹{spent.toLocaleString('en-IN')} of ₹{b.limit.toLocaleString('en-IN')}
                     </div>
                   </div>
                   <button 
                     onClick={() => deleteBudget(b.id)} 
                     style={{ 
                       background: 'transparent', 
-                      border: '1px solid rgba(239,68,68,0.2)', 
+                      border: '1px solid rgba(220,38,38,0.2)', 
                       color: 'var(--danger)', 
                       padding: '6px 12px', 
                       borderRadius: '6px', 
@@ -141,7 +141,7 @@ export default function Budgets({ lang }) {
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
                   <span>{Math.round(percentage)}% used</span>
-                  <span>₹{Math.max(b.limit - spent, 0).toLocaleString()} left · ends 30/04/2026</span>
+                  <span>₹{Math.max(b.limit - spent, 0).toLocaleString('en-IN')} left · ends 30/04/2026</span>
                 </div>
               </div>
             );

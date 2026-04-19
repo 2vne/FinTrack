@@ -24,8 +24,9 @@ export default function Dashboard({ lang }) {
   }, []);
 
   const totalExpenses = transactions.reduce((sum, t) => sum + Number(t.amount), 0);
-  const totalIncome = 60000; // Updated to match screenshot
+  const totalIncome = user.income ? Number(user.income) : 60000;
   const savings = totalIncome - totalExpenses;
+  const expenseRatio = totalIncome > 0 ? Math.round((totalExpenses / totalIncome) * 100) : 0;
 
   // Fake current progress for goals to match UI
   const getGoalProgress = (goal, index) => {
@@ -40,29 +41,30 @@ export default function Dashboard({ lang }) {
     <div className="fade-in dashboard-spendwise">
       <div className="sw-header">
         <div>
-          <h1 style={{ fontSize: '1.75rem', fontWeight: 700, marginBottom: '4px' }}>Dashboard</h1>
-          <p style={{ color: '#94a3b8', fontSize: '0.95rem' }}>Your money at a glance</p>
+          <h1 className="fs-3 fw-bold mb-1">Dashboard</h1>
+          <p className="text-secondary small mb-0">Your money at a glance</p>
         </div>
         <div className="sw-header-right">
-          <input type="text" className="sw-search" placeholder="Search transactions, goals..." />
-          <div className="sw-avatar">{user.name.charAt(0).toUpperCase()}</div>
+          <Link to="/settings" className="text-decoration-none">
+            <div className="sw-avatar">{user.name.charAt(0).toUpperCase()}</div>
+          </Link>
         </div>
       </div>
 
       <div className="sw-stat-cards">
         <div className="sw-stat-card">
           <div className="sw-stat-label">EST. INCOME</div>
-          <div className="sw-stat-value">₹{totalIncome.toLocaleString()}</div>
+          <div className="sw-stat-value">₹{totalIncome.toLocaleString('en-IN')}</div>
           <div className="sw-stat-meta text-green">+5%</div>
         </div>
         <div className="sw-stat-card">
           <div className="sw-stat-label">EXPENSES</div>
-          <div className="sw-stat-value">₹{totalExpenses > 0 ? totalExpenses.toLocaleString() : '8,367'}</div>
-          <div className="sw-stat-meta text-red">14% of income</div>
+          <div className="sw-stat-value">₹{totalExpenses > 0 ? totalExpenses.toLocaleString('en-IN') : '0'}</div>
+          <div className="sw-stat-meta text-red">{expenseRatio}% of income</div>
         </div>
         <div className="sw-stat-card">
           <div className="sw-stat-label">SAVINGS</div>
-          <div className="sw-stat-value">₹{savings.toLocaleString()}</div>
+          <div className="sw-stat-value">₹{savings.toLocaleString('en-IN')}</div>
           <div className="sw-stat-meta text-green">+12%</div>
         </div>
       </div>
@@ -78,12 +80,12 @@ export default function Dashboard({ lang }) {
           </div>
         </div>
 
-        <div className="sw-card" style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className="sw-card d-flex flex-column">
           <div className="sw-section-header">
             <h3>Active Goals</h3>
             <Link to="/goals" className="sw-link">View all</Link>
           </div>
-          <div style={{ flex: 1 }}>
+          <div className="flex-grow-1">
             {goals.slice(0, 3).map((goal, i) => {
               const current = getGoalProgress(goal, i);
               const percent = Math.min(100, (current / goal.targetAmount) * 100);
@@ -92,7 +94,7 @@ export default function Dashboard({ lang }) {
                   <div className="sw-goal-header">
                     <span className="sw-goal-name">{goal.name}</span>
                     <span className="sw-goal-amounts">
-                      ₹{current.toLocaleString()} / ₹{goal.targetAmount.toLocaleString()}
+                      ₹{current.toLocaleString('en-IN')} / ₹{goal.targetAmount.toLocaleString('en-IN')}
                     </span>
                   </div>
                   <div className="sw-progress-bg">
@@ -104,7 +106,7 @@ export default function Dashboard({ lang }) {
           </div>
           <div className="sw-goals-footer">
             <span>Total saved</span>
-            <span className="sw-total-saved">₹{totalSaved.toLocaleString()}</span>
+            <span className="sw-total-saved">₹{totalSaved.toLocaleString('en-IN')}</span>
           </div>
         </div>
       </div>
@@ -114,7 +116,7 @@ export default function Dashboard({ lang }) {
           <h3>Recent transactions</h3>
           <Link to="/expenses" className="sw-link">See all</Link>
         </div>
-        
+
         {transactions.length === 0 ? (
           <table className="sw-table">
             <thead>
@@ -122,7 +124,7 @@ export default function Dashboard({ lang }) {
                 <th>DATE</th>
                 <th>DESCRIPTION</th>
                 <th>CATEGORY</th>
-                <th style={{ textAlign: 'right' }}>AMOUNT</th>
+                <th className="text-end">AMOUNT</th>
               </tr>
             </thead>
             <tbody>
@@ -130,7 +132,7 @@ export default function Dashboard({ lang }) {
                 <td>2026-04-16</td>
                 <td>Zomato — dinner</td>
                 <td><span className="pill">food</span></td>
-                <td style={{ textAlign: 'right', fontWeight: 600 }}>- ₹420</td>
+                <td className="text-end fw-semibold">- ₹420</td>
               </tr>
             </tbody>
           </table>
@@ -141,7 +143,7 @@ export default function Dashboard({ lang }) {
                 <th>DATE</th>
                 <th>DESCRIPTION</th>
                 <th>CATEGORY</th>
-                <th style={{ textAlign: 'right' }}>AMOUNT</th>
+                <th className="text-end">AMOUNT</th>
               </tr>
             </thead>
             <tbody>
@@ -150,8 +152,8 @@ export default function Dashboard({ lang }) {
                   <td>{t.date}</td>
                   <td>{t.description}</td>
                   <td><span className="pill">{t.category.toLowerCase()}</span></td>
-                  <td style={{ textAlign: 'right', fontWeight: 600 }}>
-                    - ₹{Number(t.amount).toLocaleString()}
+                  <td className="text-end fw-semibold">
+                    - ₹{Number(t.amount).toLocaleString('en-IN')}
                   </td>
                 </tr>
               ))}

@@ -68,7 +68,7 @@ export default function Expenses({ lang }) {
   };
 
   const totalExpenses = transactions.reduce((acc, t) => acc + Number(t.amount), 0);
-  
+
   const categoryTotals = transactions.reduce((acc, t) => {
     const cat = t.category || 'Other';
     acc[cat] = (acc[cat] || 0) + Number(t.amount);
@@ -85,19 +85,19 @@ export default function Expenses({ lang }) {
 
   const colors = ['#10b981', '#38bdf8', '#fbbf24', '#f87171', '#a78bfa'];
 
-  const filteredTransactions = transactions.filter(t => 
-    t.description?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+  const filteredTransactions = transactions.filter(t =>
+    t.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     t.category?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <div className="fade-in">
-      <div className="page-header">
+      <div className="page-header mb-5">
         <div>
           <h1>{lang.expenses}</h1>
-          <p>Track and manage your spending</p>
+          <p className="text-secondary">Track and manage your spending</p>
         </div>
-        <div style={{ display: 'flex', gap: '12px' }}>
+        <div className="d-flex gap-2">
           <button className="btn btn-primary" onClick={() => setShowExpenseModal(true)}>+ {lang.addExpense}</button>
           <button className="btn btn-outline" onClick={() => setShowBillModal(true)}>+ {lang.addBill}</button>
         </div>
@@ -105,18 +105,18 @@ export default function Expenses({ lang }) {
 
       {/* Where your money goes */}
       {transactions.length > 0 && (
-        <div className="card" style={{ marginBottom: '28px' }}>
-          <h3 style={{ marginBottom: '24px' }}>Where your money goes</h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div className="card mb-4">
+          <h3 className="mb-4">Where your money goes</h3>
+          <div className="d-flex flex-column gap-3">
             {categoryBreakdown.map((item, index) => (
               <div key={item.category}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
-                  <span style={{ fontWeight: 500 }}>{item.category}</span>
-                  <span style={{ color: 'var(--text-secondary)', fontFamily: 'monospace' }}>
-                    ₹{item.amount.toLocaleString()} ({item.percentage}%)
+                <div className="d-flex justify-content-between mb-2 small">
+                  <span className="fw-medium">{item.category}</span>
+                  <span className="text-secondary font-monospace">
+                    ₹{item.amount.toLocaleString('en-IN')} ({item.percentage}%)
                   </span>
                 </div>
-                <div style={{ background: 'var(--border)', height: '8px', borderRadius: '4px', overflow: 'hidden' }}>
+                <div className="rounded overflow-hidden" style={{ background: 'var(--border)', height: '8px' }}>
                   <div style={{ width: `${item.percentage}%`, height: '100%', background: colors[index % colors.length], borderRadius: '4px' }}></div>
                 </div>
               </div>
@@ -127,19 +127,19 @@ export default function Expenses({ lang }) {
 
       {/* Transactions Table */}
       <div className="card">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+        <div className="d-flex justify-content-between align-items-center mb-3">
           <h3>{lang.transactions}</h3>
-          <input 
-            type="text" 
-            placeholder="Search transactions..." 
-            className="form-control" 
-            style={{ width: '250px', padding: '8px 14px', borderRadius: '20px' }}
+          <input
+            type="text"
+            placeholder="Search transactions..."
+            className="form-control rounded-pill px-3 py-2"
+            style={{ width: '250px' }}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         {filteredTransactions.length === 0 ? (
-          <p style={{ color: 'var(--text-secondary)', textAlign: 'center', padding: '40px 0' }}>
+          <p className="text-secondary text-center py-5">
             No transactions yet. Click the buttons above to add your first entry.
           </p>
         ) : (
@@ -159,17 +159,17 @@ export default function Expenses({ lang }) {
                 {filteredTransactions.map((t) => (
                   <tr key={t.id}>
                     <td>
-                      <span style={{
-                        display: 'inline-block', padding: '3px 10px', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 600,
-                        background: t.type === 'bill' ? 'rgba(245,158,11,0.1)' : 'rgba(239,68,68,0.1)',
-                        color: t.type === 'bill' ? '#f59e0b' : '#ef4444'
+                      <span className="d-inline-block px-2 py-1 rounded-pill small fw-semibold" style={{
+                        background: t.type === 'bill' ? 'rgba(245,158,11,0.1)' : 'rgba(220,38,38,0.1)',
+                        color: t.type === 'bill' ? '#f59e0b' : 'var(--danger)',
+                        fontSize: '0.75rem'
                       }}>
                         {t.type === 'bill' ? 'Bill' : 'Expense'}
                       </span>
                     </td>
                     <td>{t.description}</td>
                     <td><span className="category-tag">{t.category}</span></td>
-                    <td style={{ fontWeight: 600 }}>₹{Number(t.amount).toLocaleString()}</td>
+                    <td className="fw-semibold">₹{Number(t.amount).toLocaleString('en-IN')}</td>
                     <td>{t.date}</td>
                     <td>
                       <button className="btn btn-sm btn-danger" onClick={() => deleteTransaction(t.id)}>Delete</button>
@@ -198,13 +198,16 @@ export default function Expenses({ lang }) {
             </div>
             <div className="form-group">
               <label>{lang.date}</label>
-              <input type="date" className="form-control" value={expDate} onChange={(e) => setExpDate(e.target.value)} required />
+              <div style={{ position: 'relative' }}>
+                <input type="text" className="form-control" value={expDate ? expDate.split('-').reverse().join('/') : ''} placeholder="DD/MM/YYYY" readOnly style={{ backgroundColor: 'var(--bg)' }} />
+                <input type="date" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }} value={expDate} onChange={(e) => setExpDate(e.target.value)} required onClick={(e) => e.target.showPicker()} />
+              </div>
             </div>
             <div className="form-group">
               <label>{lang.description}</label>
               <input type="text" className="form-control" value={expDesc} onChange={(e) => setExpDesc(e.target.value)} placeholder="What was this expense for?" />
             </div>
-            <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>{lang.addExpense}</button>
+            <button type="submit" className="btn btn-primary w-100 justify-content-center">{lang.addExpense}</button>
           </form>
         </Modal>
       )}
@@ -225,13 +228,31 @@ export default function Expenses({ lang }) {
             </div>
             <div className="form-group">
               <label>{lang.date}</label>
-              <input type="date" className="form-control" value={billDate} onChange={(e) => setBillDate(e.target.value)} required />
+              <div style={{ position: 'relative' }}>
+                <input type="text" className="form-control" value={billDate ? billDate.split('-').reverse().join('/') : ''} placeholder="DD/MM/YYYY" readOnly style={{ backgroundColor: 'var(--bg)' }} />
+                <input type="date" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }} value={billDate} onChange={(e) => setBillDate(e.target.value)} required onClick={(e) => e.target.showPicker()} />
+              </div>
             </div>
             <div className="form-group">
               <label>Attach File (optional)</label>
-              <input type="file" className="form-control" onChange={(e) => setBillFile(e.target.files[0])} />
+              <div style={{ position: 'relative', border: '2px dashed var(--border)', borderRadius: '8px', padding: '24px', textAlign: 'center', background: 'rgba(255,255,255,0.02)', transition: 'var(--transition)' }}>
+                <input type="file" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }} onChange={(e) => setBillFile(e.target.files[0])} />
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(16,185,129,0.1)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.2rem' }}>
+                    {billFile ? '✓' : '📁'}
+                  </div>
+                  {billFile ? (
+                    <span style={{ fontWeight: 600, color: 'var(--text)' }}>{billFile.name}</span>
+                  ) : (
+                    <>
+                      <span style={{ fontWeight: 500, color: 'var(--text)' }}>Click to upload</span>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>PDF, JPG or PNG (max. 5MB)</span>
+                    </>
+                  )}
+                </div>
+              </div>
             </div>
-            <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>{lang.addBill}</button>
+            <button type="submit" className="btn btn-primary w-100 justify-content-center">{lang.addBill}</button>
           </form>
         </Modal>
       )}

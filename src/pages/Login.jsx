@@ -32,26 +32,25 @@ export default function Login() {
   return (
     <div className="auth-split">
       <div className="auth-left">
-        <div className="auth-brand">
-          <div className="auth-brand-icon">F</div>
-          FinTrack
+        <div className="auth-brand d-flex align-items-center gap-2">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 4h16l-4 4H8v12H4V4zm4 8h8l-4 4H8v-4z" fill="var(--primary)"/>
+          </svg>
+          <span style={{ fontSize: '1.75rem', fontWeight: 600, color: 'var(--text)', letterSpacing: '0.5px' }}>FinTrack</span>
         </div>
         <h1>Take control of your <span className="highlight">wealth</span>.</h1>
         <p className="desc">
           The ultimate personal finance tracker to budget smartly, track expenses, and hit your financial goals effortlessly.
         </p>
-        <div className="feature-pill">Smart budgeting</div>
-        <div className="feature-pill">Real-time tracking</div>
-        <div className="feature-pill">Goal management</div>
       </div>
-      
+
       <div className="auth-right">
         <div className="auth-form-card fade-in">
           <h2>Welcome Back</h2>
           <p className="subtitle">Sign in to your FinTrack account</p>
 
           {error && (
-            <div style={{ background: 'rgba(239,68,68,0.1)', color: '#ef4444', padding: '12px 16px', borderRadius: '8px', marginBottom: '24px', fontSize: '0.875rem', fontWeight: 500 }}>
+            <div style={{ background: 'rgba(220,38,38,0.1)', color: 'var(--danger)', padding: '12px 16px', borderRadius: '8px', marginBottom: '24px', fontSize: '0.875rem', fontWeight: 500 }}>
               {error}
             </div>
           )}
@@ -73,7 +72,7 @@ export default function Login() {
           <div className="auth-links">
             Don't have an account? <Link to="/signup">Create account</Link>
           </div>
-          
+
           <div className="auth-footer-text">
             By signing in, you agree to our Terms of Service and Privacy Policy.
           </div>
