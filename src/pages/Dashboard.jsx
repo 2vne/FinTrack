@@ -44,11 +44,6 @@ export default function Dashboard({ lang }) {
           <h1 className="fs-3 fw-bold mb-1">Dashboard</h1>
           <p className="text-secondary small mb-0">Your money at a glance</p>
         </div>
-        <div className="sw-header-right">
-          <Link to="/settings" className="text-decoration-none">
-            <div className="sw-avatar">{user.name.charAt(0).toUpperCase()}</div>
-          </Link>
-        </div>
       </div>
 
       <div className="sw-stat-cards">

@@ -453,7 +453,7 @@ select.form-control {
   display: flex;
   min-height: 100vh;
   background-color: #0c0c0e;
-  background-image: 
+  background-image:
     linear-gradient(rgba(12, 12, 14, 0.65), rgba(12, 12, 14, 0.85)),
     url('./assets/finance_auth_bg.png');
   background-size: cover;
@@ -804,48 +804,6 @@ select.form-control {
   animation: fadeIn 0.4s ease;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 70px;
-    padding: 16px 8px;
-  }
-
-  .sidebar .nav-text,
-  .sidebar-brand span,
-  .sidebar-footer .nav-text {
-    display: none;
-  }
-
-  .sidebar-brand {
-    justify-content: center;
-    padding: 8px;
-    margin-bottom: 24px;
-  }
-
-  .sidebar-link {
-    justify-content: center;
-    padding: 12px;
-  }
-
-  .main-content {
-    margin-left: 70px;
-    padding: 20px;
-  }
-
-  .grid-2 {
-    grid-template-columns: 1fr;
-  }
-
-  .stat-cards {
-    grid-template-columns: 1fr;
-  }
-
-  .sw-middle-grid {
-    grid-template-columns: 1fr !important;
-  }
-}
-
 /* Dashboard SpendWise Theme */
 .dashboard-spendwise {
   color: var(--text);
@@ -1079,4 +1037,149 @@ select.form-control {
   border-radius: 20px;
   font-size: 0.75rem;
   color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: 64px;
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    padding: 0 16px;
+    border-right: none;
+    border-top: 1px solid var(--border);
+    background: var(--bg-card);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+  }
+
+  .sidebar-brand {
+    display: flex !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  .sidebar-brand span {
+    display: none !important;
+  }
+
+  .sidebar-brand svg {
+    margin: 0 !important;
+  }
+
+  .sidebar-footer {
+    display: flex !important;
+    padding: 0 !important;
+    margin: 0;
+    border: none;
+  }
+
+  .sidebar-footer .nav-text {
+    display: none !important;
+  }
+
+  .sidebar-footer button {
+    padding: 8px !important;
+    border-radius: 50% !important;
+    background: transparent;
+    border: none;
+    color: var(--danger);
+  }
+
+  .sidebar-footer button:hover {
+    background: rgba(220, 38, 38, 0.1);
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    height: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0;
+    gap: 0;
+  }
+
+  .sidebar-link {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 0;
+    height: 100%;
+    border-radius: 0;
+    background: transparent !important;
+  }
+
+  .sidebar-link .nav-text {
+    display: none !important;
+  }
+
+  .sidebar-link.active {
+    color: var(--primary) !important;
+  }
+
+  .sidebar-link.active svg {
+    fill: var(--primary);
+  }
+
+  .sidebar-link .nav-icon {
+    display: block !important;
+    width: 24px;
+    height: 24px;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
+    padding-bottom: 92px;
+  }
+
+  .grid-2,
+  .stat-cards,
+  .sw-stat-cards {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .sw-middle-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+
+  .sw-header {
+    margin-bottom: 24px;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+
+  .sw-card,
+  .card {
+    padding: 20px;
+    overflow-x: auto;
+  }
+
+  .page-header {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    display: flex !important;
+  }
+
+  .page-header h1 {
+    font-size: 2rem;
+    display: block !important;
+  }
 }

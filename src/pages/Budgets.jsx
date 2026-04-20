@@ -72,7 +72,7 @@ export default function Budgets({ lang }) {
         </div>
       ) : (
         <>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '24px' }}>
+          <div className="stat-cards">
             <div className="card" style={{ padding: '20px' }}>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '12px' }}>Total Budget</div>
               <div style={{ fontSize: '1.75rem', fontWeight: 700, color: 'var(--text)' }}>₹{totalBudget.toLocaleString('en-IN')}</div>

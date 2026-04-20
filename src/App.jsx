@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation, Link } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -17,10 +17,20 @@ function ProtectedRoute({ children }) {
 }
 
 function AppLayout({ children, lang }) {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+  const userName = currentUser.name || 'U';
+
   return (
     <div className="app-layout">
       <Sidebar lang={lang} />
-      <main className="main-content">{children}</main>
+      <main className="main-content position-relative">
+        <div className="position-absolute" style={{ top: '24px', right: '24px', zIndex: 100 }}>
+          <Link to="/settings" className="text-decoration-none">
+            <div className="sw-avatar">{userName.charAt(0).toUpperCase()}</div>
+          </Link>
+        </div>
+        {children}
+      </main>
     </div>
   );
 }

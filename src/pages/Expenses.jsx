@@ -127,13 +127,13 @@ export default function Expenses({ lang }) {
 
       {/* Transactions Table */}
       <div className="card">
-        <div className="d-flex justify-content-between align-items-center mb-3">
-          <h3>{lang.transactions}</h3>
+        <div className="d-flex flex-column flex-sm-row justify-content-start align-items-start align-items-sm-center gap-4 mb-4">
+          <h3 className="mb-0">{lang.transactions}</h3>
           <input
             type="text"
             placeholder="Search transactions..."
             className="form-control rounded-pill px-3 py-2"
-            style={{ width: '250px' }}
+            style={{ width: '100%', maxWidth: '220px' }}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
